@@ -1,0 +1,2 @@
+Manifest-Version: 1.0
+Main-Class: it.polito.wa2group8.order_service.OrderServiceApplicationKt

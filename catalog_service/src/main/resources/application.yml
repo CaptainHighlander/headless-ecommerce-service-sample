@@ -1,0 +1,63 @@
+spring:
+  application:
+    name: catalog
+  r2dbc:
+    #url: r2dbc:mariadb://localhost:3306/ecommerce
+    url: r2dbc:mariadb://mariadb:3307/catalogdb
+    username: root
+    password: password
+  main:
+    web-application-type: reactive
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: wa2greateight1@gmail.com
+    password: UnaBelaPasword08
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+        debug: true
+  kafka:
+    bootstrap-servers:
+      #- localhost:9091
+      #- localhost:9092
+      #- localhost:9093
+      - kafka1:9091
+      - kafka2:9092
+      - kafka3:9093
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+    consumer:
+      group-id: ecommerce
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+  sql:
+    init:
+      username: root
+      password: password
+      schema-locations: classpath*:schema.sql
+      data-locations: classpath*:data.sql
+eureka:
+  instance:
+    hostname: localhost
+    #ipAddress: 192.168.1.139
+    preferIpAddress: true
+    lease-renewal-interval-in-seconds: 5
+    lease-expiration-duration-in-seconds: 5
+  client:
+    serviceUrl:
+      #defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+      defaultZone: ${EUREKA_URI:http://discovery:8761/eureka}
+security:
+  jwt:
+    jwtSecret: 462D4A614E645267556B587032733575123456789AA
+    jwtExpirationMs: 1800000
+    jwtHeader: Authorization
+    jwtHeaderStart: Bearer
+server:
+  port: 8080

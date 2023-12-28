@@ -1,0 +1,59 @@
+spring:
+  application:
+    name: wallet
+  datasource:
+    url: jdbc:mariadb://mariadb:3307/walletdb
+    database-host: mariadb
+    database-name: walletdb
+    database-port: 3307
+    username: root
+    password: password
+    debezium-connector-name: wallet_mysql_connector
+    debezium-cluster-name: wallet_mysql_db_server
+    debezium-id: 10184
+    outbox-table: wallet_outbox
+  jpa:
+    show-sql: true
+    generate-ddl: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MariaDBDialect
+    # hibernate:
+    #   ddl-auto: create-drop
+  kafka:
+    bootstrap-servers:
+      - kafka1:9091
+      - kafka2:9092
+      - kafka3:9093
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+    consumer:
+      group-id: ecommerce
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+  main:
+    web-application-type: servlet
+  sql:
+    init:
+      username: root
+      password: password
+      schema-locations: classpath*:schema.sql
+      data-locations: classpath*:data.sql
+server:
+  port: 8081
+  error:
+    include-message: always
+eureka:
+  instance:
+    hostname: localhost
+    preferIpAddress: true
+    lease-renewal-interval-in-seconds: 5
+    lease-expiration-duration-in-seconds: 5
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://discovery:8761/eureka}
+security:
+  jwt:
+    jwtSecret: 462D4A614E645267556B587032733575123456789AA

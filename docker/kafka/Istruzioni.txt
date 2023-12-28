@@ -1,0 +1,23 @@
+- Installare Kafka:
+    0) Installare docker
+    1) aprire il terminale in questa cartella
+    2) digitare: docker compose up
+    3) attendere che vengano scaricare le corrette immagini (può richiedere un po' di tempo) e che venga creato il container
+- Far partire Kafka:
+    1) digitare docker compose up in questa cartella (dopo l'installazione sarà già attivo)
+- Fermare Kafka:
+    1) premere CTRL+C nel terminale
+- Con Kafka avviato:
+    1) visitare localhost:9000/
+    2) cliccare su Cluster -> Add Cluster
+         a) in cluster name mettere quello che si vuole
+         b) in Cluster Zookeeper Hosts scrivere: zoo:2181
+         c) cliccare su save
+    3) cliccare Go to cluster view
+    4) nella topbar, cliccare su Cluster -> List e cliccare sul cluster creato
+    5) nella topbar, cliccare su topic -> create
+         a) come topic name (prima casella di testo) mettere walletRequest
+         b) cliccare save
+    6) ripetere il punto sopra creando altri topic chiamati walletResponse, warehouseRequest, ,
+       orderStatusChanges e quantityAlarmLevel
+- se Kafka si sputtana durante i test, cancellare il container da docker e riattivarlo con docker compose up e poi ripetere il resto della procedura

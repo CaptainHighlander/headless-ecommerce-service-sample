@@ -1,0 +1,73 @@
+type DeletionResult {
+    message: String!
+    result: Boolean!
+}
+
+
+type DeliveryDTO {
+    city: String
+    street: String
+    warehouseId: Long
+    zip: String
+}
+
+type UpdateResult {
+    message: String!
+    result: Boolean!
+}
+
+enum OrderStatus {
+    CANCELED
+    DELIVERED
+    DELIVERING
+    FAILED
+    ISSUED
+    PENDING
+}
+
+input OrderInput {
+    products: [PurchasedProductInput!]!
+    purchasePrice: Float!
+}
+
+
+input OrderUpdateInput {
+    orderId: Long!
+    orderStatus: OrderStatus!
+}
+
+input PurchasedProductInput {
+    name: String!
+    price: Float!
+    productId: Long!
+    quantity: Int!
+}
+
+type PurchasedProductDTO {
+    name: String!
+    price: Float!
+    productId: Long!
+    quantity: Int!
+}
+
+type OrderDTO {
+    buyerId: String
+    delivery: DeliveryDTO
+    orderId: Long!
+    orderStatus: OrderStatus!
+    productsList: [PurchasedProductDTO!]
+    purchasePrice: Float
+}
+
+type Mutation {
+    deleteOrder(orderId: Long!): DeletionResult!
+    newOrder(orderInput: OrderInput!): Long
+    updateOrder(orderUpdateInput: OrderUpdateInput!): UpdateResult!
+}
+
+type Query {
+    allOrders: [OrderDTO!]!
+    order(orderId: Long!): OrderDTO
+    orders: [OrderDTO!]!
+}
+
